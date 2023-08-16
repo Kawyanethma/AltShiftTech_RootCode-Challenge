@@ -37,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                     Image.asset("images/logo.png", width: 150),
                     const SizedBox(height: 15),
                     Text(
-                      'Est molestie\ntellus dolor ut\nnibh id\nfermentum.',
+                      'Explore Cosmic\nAdventures\nYour Journey\nBegins Here!',
                       style: GoogleFonts.jura(
                           fontSize: 45,
                           fontWeight: FontWeight.w500,
@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'Ultrices bibendum porttitor\n orci eu in in tellus posuere\n tellus. Arcu.',
+                      'Discover celestial wonders, plan\nyour interstellar adventures.',
                       style: GoogleFonts.lato(
                           fontSize: 20,
                           fontWeight: FontWeight.w300,
@@ -89,7 +89,7 @@ class WelcomeScreen extends StatelessWidget {
                         color: const Color.fromARGB(255, 49, 100, 221),
                         minWidth: double.infinity,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
+                            borderRadius: BorderRadius.circular(6)),
                         onPressed: () {
                           //going to signup from
                         },
