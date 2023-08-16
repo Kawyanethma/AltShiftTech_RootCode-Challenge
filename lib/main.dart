@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flyx/welcome.dart';
+import 'package:flyx/personal.dart';
+
 
 void main() {
-  runApp(WelcomeScreen());
+  runApp(const PersonalDetails());
 }
 
 class MyApp extends StatelessWidget {
