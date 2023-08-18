@@ -3,7 +3,7 @@ import 'package:flyx/components/flyx_button_1.dart';
 import 'package:flyx/components/name_text_field.dart';
 import 'package:flyx/components/passport_text_field.dart';
 import 'package:flyx/components/phone_text_field.dart';
-import 'package:flyx/email.dart';
+import 'package:flyx/signUp/email.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PersonalDetails extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flyx/components/flyx_button_0.dart';
-import 'package:flyx/personal.dart';
+import 'package:flyx/signUp/personal.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+     
       home: Scaffold(
         body: Container(
           width: double.infinity,

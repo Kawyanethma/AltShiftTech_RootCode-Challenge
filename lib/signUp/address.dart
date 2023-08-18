@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flyx/components/address_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'components/flyx_button_1.dart';
+import '../components/flyx_button_1.dart';
 
 class Address extends StatefulWidget {
   const Address({super.key});
@@ -39,52 +39,57 @@ class _AddressState extends State<Address> {
                   image: AssetImage("images/Signup_img_1.png"),
                   fit: BoxFit.cover)),
           child: SafeArea(
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 27,
-                          ),
-                        )
-                      ],
-                    ),
-                    const Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.white,
-                      size: 100,
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Personal Address',
-                      style: GoogleFonts.lato(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
-                      textAlign: TextAlign.left,
-                    ),
-                    const SizedBox(height: 20),
-                    AddressTextField(
-                      controller: addressController,
-                      hintText: 'Joe',
-                      title: 'First Name',
-                    ),
-                    const SizedBox(height: 15),
-                    buildCountryDropButton(),
-                    const SizedBox(height: 15),
-                    buildPlanetDropButton(),
-                    const SizedBox(height: 50),
-                    const FlyxButton1(title: 'Finish', page: Address())
-                  ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () => Navigator.of(context).pop(),
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                              size: 27,
+                            ),
+                          )
+                        ],
+                      ),
+                      const Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.white,
+                        size: 100,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        'Personal Address',
+                        style: GoogleFonts.lato(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                        textAlign: TextAlign.left,
+                      ),
+                      const SizedBox(height: 20),
+                      AddressTextField(
+                        controller: addressController,
+                        hintText: 'Joe',
+                        title: 'First Name',
+                      ),
+                      const SizedBox(height: 15),
+                      buildCountryDropButton(),
+                      const SizedBox(height: 15),
+                      buildPlanetDropButton(),
+                    ]),
+                const Column(
+                  children: [FlyxButton1(title: 'Finish', page: Address())],
+                )
+              ],
             ),
           ),
         ),
@@ -105,6 +110,7 @@ class _AddressState extends State<Address> {
               icon: const Icon(Icons.keyboard_arrow_down),
               iconEnabledColor: Colors.white,
               decoration: InputDecoration(
+                
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       color: Color.fromARGB(40, 255, 255, 255), width: 2),
