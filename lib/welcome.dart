@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flyx/components/flyx_button_0.dart';
+import 'package:flyx/personal.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -83,25 +85,7 @@ class WelcomeScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    MaterialButton(
-                        color: const Color.fromARGB(255, 49, 100, 221),
-                        minWidth: double.infinity,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        onPressed: () {
-                          //going to signup from
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            'Sign up',
-                            style: GoogleFonts.lato(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),
-                            textAlign: TextAlign.center,
-                          ),
-                        ))
+                    const FlyxButton0(title: 'Sign up', page: PersonalDetails())
                   ],
                 ),
               ],
