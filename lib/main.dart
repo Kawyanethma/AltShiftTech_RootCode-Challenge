@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flyx/navbar_pages/navBar.dart';
+import 'package:flyx/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         brightness: Brightness.dark,
 
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const NavBar(),
+      home: const WelcomeScreen(),
     );
   }
 }

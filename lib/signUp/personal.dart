@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flyx/components/flyx_button_1.dart';
 import 'package:flyx/components/name_text_field.dart';
 import 'package:flyx/components/passport_text_field.dart';
 import 'package:flyx/components/phone_text_field.dart';
-import 'package:flyx/signUp/email.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PersonalDetails extends StatefulWidget {
@@ -26,8 +24,10 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: Colors.transparent,
         body: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
           width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
@@ -41,19 +41,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 27,
-                        ),
-                      )
-                    ],
-                  ),
                   const Icon(
                     Icons.account_circle_outlined,
                     color: Colors.white,
@@ -94,8 +81,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                   ),
                   const SizedBox(height: 15),
                   buildDatePicker(),
-                  const SizedBox(height: 20),
-                  const FlyxButton1(title: 'Next',page: Email(),)
                 ],
               ),
             ),

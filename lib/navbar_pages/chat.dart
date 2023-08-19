@@ -14,6 +14,7 @@ class _ChatState extends State<Chat> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 17, 17, 17),
       appBar: AppBar(
+          elevation: 0,
           backgroundColor: const Color.fromARGB(255, 17, 17, 17),
           title: Center(
               child: Row(
