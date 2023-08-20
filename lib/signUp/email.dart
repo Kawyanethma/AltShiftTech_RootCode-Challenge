@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flyx/components/email_text_field.dart';
 import 'package:flyx/components/password_field.dart';
+import 'package:flyx/signUp/personal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:im_stepper/stepper.dart';
 
@@ -20,16 +21,12 @@ class _EmailState extends State<Email> {
   void signUp() async {
     if (passwordController.text != confirmPasswordController.text ||
         emailController.text.isEmpty) {
-      showTextSnackBar(context, "Please check details");
-
       return;
     }
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-    } on FirebaseAuthException catch (e) {
-      showTextSnackBar(context, e.code);
-    }
+    } on FirebaseAuthException catch (e) {}
   }
 
   @override
@@ -119,7 +116,6 @@ class _EmailState extends State<Email> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6)),
                           onPressed: () {
-                            showTextSnackBar(context, "Please check details");
                             // signUp();
                             // FirebaseAuth.instance
                             //     .idTokenChanges()
@@ -158,29 +154,5 @@ class _EmailState extends State<Email> {
         ),
       ),
     );
-  }
-
-  void showTextSnackBar(BuildContext context, String text) {
-    final snackBar = SnackBar(
-      duration: const Duration(seconds: 3),
-      backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.error,
-            color: Colors.white,
-          ),
-          const SizedBox(
-            width: 25,
-          ),
-          Text(
-            text,
-            style: const TextStyle(fontSize: 18, color: Colors.white),
-          ),
-        ],
-      ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

@@ -20,7 +20,7 @@ class _NavBarState extends State<NavBar> {
   final screens = [
     const Home(),
     const Chat(),
-    const Book(),
+    const BookingPageOne(),
     const Explore(),
     const Profile()
   ];
