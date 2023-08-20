@@ -11,6 +11,8 @@ class NavBar extends StatefulWidget {
 
   @override
   State<NavBar> createState() => _NavBarState();
+
+  void setIndex(int i) {}
 }
 
 class _NavBarState extends State<NavBar> {
@@ -22,6 +24,7 @@ class _NavBarState extends State<NavBar> {
     const Explore(),
     const Profile()
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,7 +53,7 @@ class _NavBarState extends State<NavBar> {
             )),
             child: NavigationBar(
                 backgroundColor: const Color.fromARGB(255, 17, 17, 17),
-                indicatorColor: const Color.fromARGB(0, 252, 251, 251),
+                indicatorColor: Colors.transparent,
                 height: 80,
                 labelBehavior:
                     NavigationDestinationLabelBehavior.onlyShowSelected,

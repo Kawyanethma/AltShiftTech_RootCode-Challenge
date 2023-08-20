@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
                           color: Colors.white),
                     ),
                   ),
-                  booked ? BookedCard() : NoTripCard(),
+                  booked ? const BookedCard() : const NoTripCard(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     child: Text(

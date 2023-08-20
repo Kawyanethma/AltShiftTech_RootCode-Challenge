@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -10,10 +11,15 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Profile',
-        style: TextStyle(color: Colors.white, fontSize: 30),
+    return Center(
+      child: MaterialButton(
+        onPressed: () {
+          FirebaseAuth.instance.signOut();
+        },
+        child: const Text(
+          'Profile',
+          style: TextStyle(color: Colors.white, fontSize: 30),
+        ),
       ),
     );
   }
