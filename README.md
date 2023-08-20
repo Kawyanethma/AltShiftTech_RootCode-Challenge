@@ -1,15 +1,25 @@
 # flyx
 
-A new Flutter project.
+Interplanetary tickets Booking Mobile application.
 
-## Getting Started
+To run this application you have to have ,
+1. Flutter 
+2. Android Studio 
+3. Firebase CLI
 
-This project is a starting point for a Flutter application.
+# Installing Flutter 
+Use can follow these documentation to install flutter 
+[Flutter documentation] (https://docs.flutter.dev/get-started/install)
 
-A few resources to get you started if this is your first Flutter project:
+# Installing and setup android studio
+Use can follow these documentation to install android studio and setup
+[android studio documentation] (https://docs.flutter.dev/get-started/install/windows#install-android-studio)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Setup Firebase CLI and and FlutterFire
+Use can follow these documentation
+[Firebase CLI and FlutterFire] (https://firebase.flutter.dev/docs/cli/)
+
+Then you can use your favorite IDE open project.
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
