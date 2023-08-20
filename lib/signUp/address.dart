@@ -14,10 +14,10 @@ class Address extends StatefulWidget {
 }
 
 class _AddressState extends State<Address> {
+  final _formKey = GlobalKey<FormState>(); // Form key for validation
   final addressController = TextEditingController();
   String? dropdownvalue;
 
-  // List of items in dropdown menu
   var items = [
     'Item 1',
     'Item 2',
@@ -27,6 +27,7 @@ class _AddressState extends State<Address> {
     'Item 6',
     'Item 7',
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
