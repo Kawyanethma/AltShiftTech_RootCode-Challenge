@@ -7,7 +7,7 @@ import 'package:flyx/signUp/signup_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,39 +32,53 @@ class LoginPage extends StatelessWidget {
           ),
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
-            child: Column(children: [
-              const SizedBox(
-                height: 100,
-                width: 10,
-              ),
-              Image.asset("images/logo.png", width: 150),
-              const SizedBox(height: 15),
-              const SizedBox(
-                height: 150,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Column(
-                  children: [
-                    const Column(children: [
-                      TextInput(
-                        hint: 'Email',
-                        inputType: TextInputType.emailAddress,
-                        inputAction: TextInputAction.next,
-                      ),
-                      PasswordInput(
-                        hint: 'Password',
-                        inputAction: TextInputAction.done,
-                      ),
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ]),
-                    Column(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
+                    width: 10,
+                  ),
+                  Image.asset("images/logo.png", width: 150),
+                  const SizedBox(height: 15),
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
                       children: [
-                        const SizedBox(
-                          height: 70,
+                        TextInput(
+                          hint: 'Email',
+                          inputType: TextInputType.emailAddress,
+                          inputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Email should not be empty';
+                            }
+                            if (!isValidEmail(value)) {
+                              return 'Enter a valid email';
+                            }
+                            return null;
+                          },
+                        ),
+                        PasswordInput(
+                          hint: 'Password',
+                          inputAction: TextInputAction.done,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Password should not be empty';
+                            }
+                            if (value.length < 8) {
+                              return 'Password should be at least 8 characters';
+                            }
+                            return null;
+                          },
+                        ),
+                        Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(
                           width: double.infinity,
@@ -74,21 +88,24 @@ class LoginPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(7)),
                             onPressed: () {
-                              signIn();
-                              FirebaseAuth.instance
-                                  .idTokenChanges()
-                                  .listen((User? user) {
-                                if (user == null) {
-                                  print('User is currently signed out!');
-                                } else {
-                                  print('User is signed in!');
-                                  Navigator.of(context).pushAndRemoveUntil(
+                              if (_formKey.currentState!.validate()) {
+                                signIn();
+                                FirebaseAuth.instance
+                                    .idTokenChanges()
+                                    .listen((User? user) {
+                                  if (user == null) {
+                                    print('User is currently signed out!');
+                                  } else {
+                                    print('User is signed in!');
+                                    Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const AuthPage()),
-                                      (route) => route.isFirst);
-                                }
-                              });
+                                      (route) => route.isFirst,
+                                    );
+                                  }
+                                });
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -102,10 +119,6 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
-                        const Button(buttonText: 'Login'),
-                        const SizedBox(
-                          height: 50,
                         ),
                         TextButton(
                           onPressed: () {
@@ -133,8 +146,8 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         )
@@ -143,54 +156,25 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class Button extends StatelessWidget {
-  const Button({
-    super.key,
-    required this.buttonText,
-  });
-
-  final String buttonText;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: MaterialButton(
-        color: const Color.fromARGB(255, 49, 100, 221),
-        minWidth: double.infinity,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-        onPressed: () {},
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Text(
-            buttonText,
-            style: GoogleFonts.lato(
-                fontSize: 23, fontWeight: FontWeight.w400, color: Colors.white),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class TextInput extends StatelessWidget {
   const TextInput({
-    super.key,
+    Key? key,
     required this.hint,
     required this.inputType,
     required this.inputAction,
-  });
+    this.validator,
+  }) : super(key: key);
 
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: TextField(
+      child: TextFormField(
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -208,6 +192,7 @@ class TextInput extends StatelessWidget {
                 const TextStyle(color: Color.fromARGB(114, 255, 255, 255))),
         keyboardType: inputType,
         textInputAction: inputAction,
+        validator: validator,
       ),
     );
   }
@@ -215,19 +200,21 @@ class TextInput extends StatelessWidget {
 
 class PasswordInput extends StatelessWidget {
   const PasswordInput({
-    super.key,
+    Key? key,
     required this.hint,
     required this.inputAction,
-  });
+    this.validator,
+  }) : super(key: key);
 
   final String hint;
   final TextInputAction inputAction;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: TextField(
+      child: TextFormField(
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -245,6 +232,7 @@ class PasswordInput extends StatelessWidget {
                 const TextStyle(color: Color.fromARGB(114, 255, 255, 255))),
         obscureText: true,
         textInputAction: inputAction,
+        validator: validator,
       ),
     );
   }
@@ -266,4 +254,13 @@ class BackgroundImage extends StatelessWidget {
       ),
     );
   }
+}
+
+bool isValidEmail(String email) {
+  final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+  return emailRegExp.hasMatch(email);
+}
+
+void signIn() {
+  //logic using firebase Auth
 }
