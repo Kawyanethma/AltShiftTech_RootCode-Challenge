@@ -113,36 +113,8 @@ class _LoginPageState extends State<LoginPage> {
                     ]),
                     Column(
                       children: [
-                        TextInput(
-                          hint: 'Email',
-                          inputType: TextInputType.emailAddress,
-                          inputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Email should not be empty';
-                            }
-                            if (!isValidEmail(value)) {
-                              return 'Enter a valid email';
-                            }
-                            return null;
-                          },
-                        ),
-                        PasswordInput(
-                          hint: 'Password',
-                          inputAction: TextInputAction.done,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Password should not be empty';
-                            }
-                            if (value.length < 8) {
-                              return 'Password should be at least 8 characters';
-                            }
-                            return null;
-                          },
-                        ),
-                        Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.white),
+                        const SizedBox(
+                          height: 70,
                         ),
                         SizedBox(
                           width: double.infinity,
@@ -152,24 +124,21 @@ class _LoginPageState extends State<LoginPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(7)),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                signIn();
-                                FirebaseAuth.instance
-                                    .idTokenChanges()
-                                    .listen((User? user) {
-                                  if (user == null) {
-                                    print('User is currently signed out!');
-                                  } else {
-                                    print('User is signed in!');
-                                    Navigator.of(context).pushAndRemoveUntil(
+                              signIn();
+                              FirebaseAuth.instance
+                                  .idTokenChanges()
+                                  .listen((User? user) {
+                                if (user == null) {
+                                  print('User is currently signed out!');
+                                } else {
+                                  print('User is signed in!');
+                                  Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const AuthPage()),
-                                      (route) => route.isFirst,
-                                    );
-                                  }
-                                });
-                              }
+                                      (route) => route.isFirst);
+                                }
+                              });
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -343,13 +312,4 @@ class BackgroundImage extends StatelessWidget {
       )),
     );
   }
-}
-
-bool isValidEmail(String email) {
-  final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-  return emailRegExp.hasMatch(email);
-}
-
-void signIn() {
-  //logic using firebase Auth
 }
