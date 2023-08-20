@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flyx/components/flyx_button_0.dart';
 import 'package:flyx/login.dart';
-import 'package:flyx/signUp/signup_main.dart';
+import 'package:flyx/signUp/email.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -90,7 +91,7 @@ class WelcomeScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    const FlyxButton0(title: 'Sign up', page: SignupMain())
+                    const FlyxButton0(title: 'Sign up', page: Email())
                   ],
                 ),
               ],

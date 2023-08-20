@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "879051286300",
+    "project_id": "rootcode-53f80",
+    "storage_bucket": "rootcode-53f80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879051286300:android:e1c24c6c0890889948bcd9",
+        "android_client_info": {
+          "package_name": "com.example.flyx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879051286300-9rvl6ohkr561g8q00e170gisfim8pk25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvx7TJuBkPfqVvn7k_lSjxRyAXgAA4uLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879051286300-9rvl6ohkr561g8q00e170gisfim8pk25.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "879051286300-bhee77jirngsd0mgkct71klemc2sfe5g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flyx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

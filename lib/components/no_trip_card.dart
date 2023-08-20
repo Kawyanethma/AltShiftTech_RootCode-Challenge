@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../navbar_pages/book.dart';
-import 'flyx_button_0.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NoTripCard extends StatelessWidget {
   const NoTripCard({
@@ -32,13 +30,27 @@ class NoTripCard extends StatelessWidget {
                     color: Colors.white),
               ),
               const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 60),
-                child: FlyxButton0(
-                  page: Book(),
-                  title: 'Book a Trip',
-                ),
-              )
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 60),
+                  child: MaterialButton(
+                      color: const Color.fromARGB(255, 49, 100, 221),
+                      minWidth: double.infinity,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6)),
+                      onPressed: () {
+                        
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          'Book a Trip',
+                          style: GoogleFonts.lato(
+                              fontSize: 23,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      )))
             ],
           ),
         ));
