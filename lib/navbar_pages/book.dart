@@ -162,6 +162,29 @@ class BookingPageOne extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
             ),
+            const SizedBox(
+              height: 90,
+              width: double.infinity,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    OfferCard(
+                        title: '12.0%',
+                        description: 'Reduction',
+                        path: 'images/boximg1.png'),
+                    OfferCard(
+                        title: '49.0%',
+                        description: 'Oxygen Supples',
+                        path: 'images/boximg2.png'),
+                    OfferCard(
+                        title: '12.0%',
+                        description: 'New offers',
+                        path: 'images/boximg3.png')
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
