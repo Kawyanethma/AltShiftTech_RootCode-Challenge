@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flyx/components/flyx_button_0.dart';
+import 'package:flyx/login.dart';
 import 'package:flyx/signUp/signup_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -70,7 +71,11 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         TextButton(
                             onPressed: () {
-                              //going to login page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                              );
                             },
                             child: Text(
                               'Login',

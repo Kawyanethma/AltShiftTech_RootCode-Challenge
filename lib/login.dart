@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flyx/signUp/signup_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -14,11 +15,26 @@ class LoginPage extends StatelessWidget {
       children: [
         const BackgroundImage(),
         Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            toolbarHeight: 35,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                size: 27,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             child: Column(children: [
               const SizedBox(
-                height: 200,
+                height: 100,
                 width: 10,
               ),
               Image.asset("images/logo.png", width: 150),
@@ -30,7 +46,7 @@ class LoginPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
                   children: [
-                    Column(children: [
+                    const Column(children: [
                       TextInput(
                         hint: 'Email',
                         inputType: TextInputType.emailAddress,
@@ -47,24 +63,31 @@ class LoginPage extends StatelessWidget {
                     ]),
                     Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                         ),
-                        Button(buttonText: 'Login'),
-                        SizedBox(
+                        const Button(buttonText: 'Login'),
+                        const SizedBox(
                           height: 50,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                            bottom: BorderSide(color: Colors.white, width: 1),
-                          )),
-                          child: Text(
-                            'Create New Account',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        SizedBox(
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => const SignupMain()),
+                                  (route) => route.isFirst);
+                            },
+                            child: Text(
+                              'Create new Accout',
+                              style: GoogleFonts.lato(
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      const Color.fromARGB(255, 242, 184, 32)),
+                              textAlign: TextAlign.center,
+                            )),
+                        const SizedBox(
                           height: 30,
                         ),
                       ],
@@ -90,7 +113,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: MaterialButton(
         color: const Color.fromARGB(255, 49, 100, 221),

@@ -75,10 +75,10 @@ class _SignupMainState extends State<SignupMain> {
                       borderRadius: BorderRadius.circular(6)),
                   onPressed: () {
                     setState(() {
-                      print(activeIndex);
+
                       if (activeIndex == 2) {
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => NavBar()),
+                            MaterialPageRoute(builder: (context) => const NavBar()),
                             (route) => false);
                       } else {
                         title = "Next";
