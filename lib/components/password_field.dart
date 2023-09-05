@@ -21,8 +21,17 @@ class PasswordTextField extends StatelessWidget {
           style: const TextStyle(color: Colors.white),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
             controller: controller,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Password should not be empty';
+              }
+              if (value.length < 6) {
+                return 'Password should be at least 6 characters';
+              }
+              return null;
+            },
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(

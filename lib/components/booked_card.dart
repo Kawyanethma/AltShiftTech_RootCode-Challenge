@@ -1,10 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BookedCard extends StatelessWidget {
+class BookedCard extends StatefulWidget {
   const BookedCard({
     super.key,
   });
+
+  @override
+  State<BookedCard> createState() => _BookedCardState();
+}
+
+class _BookedCardState extends State<BookedCard> {
+  var currentUser = FirebaseAuth.instance.currentUser;
+  String originCity = "";
+  String originCounty = " ";
+  String originPlanet = " ";
+  String destinationCity = " ";
+  String destinationCounty = " ";
+  String destinationPlanet = " ";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getBooked();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +47,21 @@ class BookedCard extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    'CMD',
+                    originCity,
                     style: GoogleFonts.lato(
                         fontSize: 27,
                         fontWeight: FontWeight.w400,
                         color: Colors.white),
                   ),
                   Text(
-                    'Colombo',
+                    originCounty,
                     style: GoogleFonts.lato(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: const Color.fromARGB(255, 169, 169, 169)),
                   ),
                   Text(
-                    'Earth',
+                    originPlanet,
                     style: GoogleFonts.lato(
                         fontSize: 14,
                         fontWeight: FontWeight.w300,
@@ -52,7 +73,7 @@ class BookedCard extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    'DXB',
+                    destinationCity,
                     style: GoogleFonts.lato(
                         fontSize: 27,
                         fontWeight: FontWeight.w400,
@@ -60,7 +81,7 @@ class BookedCard extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    'Bridgehead',
+                    destinationCounty,
                     style: GoogleFonts.lato(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -68,7 +89,7 @@ class BookedCard extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    'Pandora',
+                    destinationPlanet,
                     style: GoogleFonts.lato(
                         fontSize: 14,
                         fontWeight: FontWeight.w300,
@@ -166,5 +187,24 @@ class BookedCard extends StatelessWidget {
         ),
       ]),
     );
+  }
+
+  Future getBooked() async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(currentUser!.email)
+        .collection('bookings')
+        .doc('ticket')
+        .get()
+        .then((value) {
+      setState(() {
+        originCity = value.data()!['originCity'];
+        originCounty = value.data()!['originCounty'];
+        originPlanet = value.data()!['originPlanet'];
+        destinationCity = value.data()!['destinationCity'];
+        destinationCounty = value.data()!['destinationCounty'];
+        destinationPlanet = value.data()!['destinationPlanet'];
+      });
+    });
   }
 }

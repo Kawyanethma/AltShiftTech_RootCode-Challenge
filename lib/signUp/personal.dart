@@ -6,8 +6,6 @@ import 'package:flyx/signUp/email.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:im_stepper/stepper.dart';
 
-
-
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
 
@@ -29,20 +27,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          toolbarHeight: 35,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              size: 27,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
         backgroundColor: Colors.transparent,
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
@@ -62,7 +46,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                   const Icon(
                     Icons.account_circle_outlined,
                     color: Colors.white,
-                    size: 100,
+                    size: 90,
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -73,7 +57,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                         color: Colors.white),
                     textAlign: TextAlign.left,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   NameTextField(
                     controller: firstNameController,
                     hintText: 'Joe',
@@ -99,46 +83,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                   ),
                   const SizedBox(height: 15),
                   buildDatePicker(),
-                  Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      DotStepper(
-                        activeStep: 1,
-                        dotCount: 3,
-                        dotRadius: 10.0,
-                        shape: Shape.pipe,
-                        spacing: 5,
-                        indicatorDecoration: const IndicatorDecoration(
-                            color: Color.fromARGB(255, 49, 100, 221),
-                            strokeColor: Color.fromARGB(255, 49, 100, 221)),
-                        fixedDotDecoration: const FixedDotDecoration(
-                          color: Color.fromARGB(90, 49, 101, 221),
-                        ),
-                      ),
-                      MaterialButton(
-                          color: const Color.fromARGB(255, 49, 100, 221),
-                          minWidth: double.infinity,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Email()),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              'Sign Up',
-                              style: GoogleFonts.lato(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                          ))
-                    ],
-                  ),
                 ],
               ),
             ),

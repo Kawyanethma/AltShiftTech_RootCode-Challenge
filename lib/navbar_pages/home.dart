@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flyx/components/booked_card.dart';
 import 'package:flyx/components/no_trip_card.dart';
@@ -12,7 +14,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var currentUser = FirebaseAuth.instance.currentUser;
   bool booked = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getBooked();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,5 +129,25 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Future getBooked() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(currentUser!.email)
+          .get()
+          .then((value) {
+        setState(() {
+          if (value.data()!['booked'] == true) {
+            booked = true;
+          } else {
+            booked = false;
+          }
+        });
+      });
+    } on FirebaseException catch (e) {
+      print(e.code);
+    }
   }
 }

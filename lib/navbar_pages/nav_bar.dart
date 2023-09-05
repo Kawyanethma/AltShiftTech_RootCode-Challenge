@@ -11,8 +11,6 @@ class NavBar extends StatefulWidget {
 
   @override
   State<NavBar> createState() => _NavBarState();
-
-  void setIndex(int i) {}
 }
 
 class _NavBarState extends State<NavBar> {

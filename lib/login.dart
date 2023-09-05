@@ -6,7 +6,7 @@ import 'package:flyx/components/password_field.dart';
 import 'package:flyx/signUp/signup_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
@@ -14,9 +14,10 @@ class LoginPage extends StatelessWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController email = TextEditingController();
+  final GlobalKey<FormState> _loginform1 = GlobalKey<FormState>();
+  final email = TextEditingController();
 
-  final TextEditingController password = TextEditingController();
+  final password = TextEditingController();
 
   void signIn() async {
     showDialog(
@@ -30,7 +31,12 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pop(context);
       }
     } on FirebaseException catch (e) {
-      showTextSnackBar(context, e.code);
+      if (e.code == 'user-not-found') {
+        showTextSnackBar(context, 'No user found');
+      } else if (e.code == 'wrong-password') {
+        showTextSnackBar(context, 'Wrong password');
+      }
+      print(e);
       Navigator.pop(context);
     }
   }
@@ -82,106 +88,117 @@ class _LoginPageState extends State<LoginPage> {
           ),
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
-            child: Column(children: [
-              const SizedBox(
-                height: 100,
-                width: 10,
-              ),
-              Image.asset("images/logo.png", width: 150),
-              const SizedBox(height: 15),
-              const SizedBox(
-                height: 150,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Column(
-                  children: [
-                    const Column(children: [
-                      TextInput(
-                        hint: 'Email',
-                        inputType: TextInputType.emailAddress,
-                        inputAction: TextInputAction.next,
-                      ),
-                      PasswordInput(
-                        hint: 'Password',
-                        inputAction: TextInputAction.done,
-                      ),
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ]),
-                    Column(
-                      children: [
+            child: Form(
+              key: _loginform1,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
+                    width: 10,
+                  ),
+                  Image.asset("images/logo.png", width: 150),
+                  const SizedBox(height: 15),
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(children: [
+                      Column(children: [
+                        EmailTextField(
+                            controller: email,
+                            hintText: "test@test.com",
+                            title: "Email"),
                         const SizedBox(
-                          height: 70,
+                          height: 10,
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: MaterialButton(
-                            color: const Color.fromARGB(255, 49, 100, 221),
-                            minWidth: double.infinity,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(7)),
-                            onPressed: () {
-                              signIn();
-                              FirebaseAuth.instance
-                                  .idTokenChanges()
-                                  .listen((User? user) {
-                                if (user == null) {
-                                  print('User is currently signed out!');
-                                } else {
-                                  print('User is signed in!');
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AuthPage()),
-                                      (route) => route.isFirst);
+                        PasswordTextField(
+                            controller: password,
+                            hintText: "Enter your password",
+                            title: "Password"),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ]),
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 70,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: MaterialButton(
+                              color: const Color.fromARGB(255, 49, 100, 221),
+                              minWidth: double.infinity,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7)),
+                              onPressed: () {
+                                if (_loginform1.currentState!.validate()) {
+                                  signIn();
                                 }
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Text(
-                                "LogIn",
-                                style: GoogleFonts.lato(
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                                textAlign: TextAlign.center,
+                                FirebaseAuth.instance
+                                    .idTokenChanges()
+                                    .listen((User? user) {
+                                  if (user == null) {
+                                    print('User is currently signed out!');
+                                  } else {
+                                    print('User is signed in!');
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AuthPage()),
+                                        (route) => route.isFirst);
+                                  }
+                                });
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: Text(
+                                  "LogIn",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const Button(buttonText: 'Login'),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) => const SignupMain()),
-                                  (route) => route.isFirst);
-                            },
-                            child: Text(
-                              'Create new Accout',
-                              style: GoogleFonts.lato(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color:
-                                      const Color.fromARGB(255, 242, 184, 32)),
-                              textAlign: TextAlign.center,
-                            )),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignupMain()),
+                                    (route) => route.isFirst);
+                              },
+                              child: Text(
+                                'Create new Accout',
+                                style: GoogleFonts.lato(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color.fromARGB(
+                                        255, 242, 184, 32)),
+                                textAlign: TextAlign.center,
+                              )),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                        ],
+                      ),
+                    ]),
+                  )
+                ],
+              ),
             ),
           ),
         )

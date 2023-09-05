@@ -41,6 +41,9 @@ dependencies:
   firebase_core: ^2.15.1
   firebase_auth: ^4.7.3
   fluttertoast: ^8.2.2
+  cloud_firestore: ^4.9.1
+  snippet_coder_utils: ^1.0.14
+  flutter_launcher_icons: ^0.13.1
 
 
 dev_dependencies:
@@ -58,6 +61,11 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/icon.png"
+
 flutter:
 
   # The following line ensures that the Material Icons font is

@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flyx/components/address_text_field.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:snippet_coder_utils/FormHelper.dart';
 
 import '../auth/auth.dart';
 
@@ -15,7 +18,22 @@ class Address extends StatefulWidget {
 
 class _AddressState extends State<Address> {
   final addressController = TextEditingController();
-  String? dropdownvalue;
+  List<dynamic> planets = [];
+
+  String? planetId;
+  String? dropdownvalue1;
+  String? dropdownvalue2;
+
+  @override
+  void initState() {
+    super.initState();
+
+    this.planets.add({"id": 1, "label": "Earth"});
+    this.planets.add({"id": 2, "label": "Mercurry"});
+    this.planets.add({"id": 3, "label": "Mars"});
+    this.planets.add({"id": 4, "label": "Jupiter"});
+    this.planets.add({"id": 5, "label": "Venus"});
+  }
 
   // List of items in dropdown menu
   var items = [
@@ -33,20 +51,6 @@ class _AddressState extends State<Address> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          toolbarHeight: 35,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              size: 27,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
           width: double.infinity,
@@ -84,46 +88,6 @@ class _AddressState extends State<Address> {
                     buildCountryDropButton(),
                     const SizedBox(height: 15),
                     buildPlanetDropButton(),
-                    Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        DotStepper(
-                          activeStep: 2,
-                          dotCount: 3,
-                          dotRadius: 10.0,
-                          shape: Shape.pipe,
-                          spacing: 5,
-                          indicatorDecoration: const IndicatorDecoration(
-                              color: Color.fromARGB(255, 49, 100, 221),
-                              strokeColor: Color.fromARGB(255, 49, 100, 221)),
-                          fixedDotDecoration: const FixedDotDecoration(
-                            color: Color.fromARGB(90, 49, 101, 221),
-                          ),
-                        ),
-                        MaterialButton(
-                            color: const Color.fromARGB(255, 49, 100, 221),
-                            minWidth: double.infinity,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6)),
-                            onPressed: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) => const AuthPage()),
-                                  (route) => false);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                "Finish",
-                                style: GoogleFonts.lato(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ))
-                      ],
-                    )
                   ]),
             ),
           ),
@@ -140,6 +104,23 @@ class _AddressState extends State<Address> {
             style: TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 10),
+          /*FormHelper.dropDownWidget(
+            context,
+            "Select Planet",
+            this.planetId,
+            this.planets,
+            (onChangedVaL){
+              this.planetId =onChangedVaL;
+              print("$onChangedVaL")
+            },
+            (onValidateVaL){
+              if(onValidateVaL ==null){
+                return 'Please Select Planet';
+              }
+              return null;
+            }
+
+          )*/
           DropdownButtonFormField(
               menuMaxHeight: 250,
               icon: const Icon(Icons.keyboard_arrow_down),
@@ -164,10 +145,10 @@ class _AddressState extends State<Address> {
               ),
               validator: (value) => value == null ? "Select a country" : null,
               dropdownColor: const Color.fromARGB(209, 0, 0, 0),
-              value: dropdownvalue,
+              value: dropdownvalue1,
               onChanged: (String? newValue) {
                 setState(() {
-                  dropdownvalue = newValue!;
+                  dropdownvalue1 = newValue!;
                 });
               },
               items: items.map((String items) {
@@ -186,7 +167,7 @@ class _AddressState extends State<Address> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Planet',
+            'Country',
             style: TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 10),
@@ -214,10 +195,10 @@ class _AddressState extends State<Address> {
               ),
               validator: (value) => value == null ? "Select a country" : null,
               dropdownColor: const Color.fromARGB(209, 0, 0, 0),
-              value: dropdownvalue,
+              value: dropdownvalue2,
               onChanged: (String? newValue) {
                 setState(() {
-                  dropdownvalue = newValue!;
+                  dropdownvalue2 = newValue!;
                 });
               },
               items: items.map((String items) {
