@@ -1,46 +1,40 @@
+// replace your google-services.json with this file
 {
   "project_info": {
-    "project_number": "879051286300",
-    "project_id": "rootcode-53f80",
-    "storage_bucket": "rootcode-53f80.appspot.com"
+    "project_number": "YOUR_PROJECT_NUMBER",
+    "project_id": "YOUR_PROJECT_ID",
+    "storage_bucket": "YOUR_STORAGE_BUCKET"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:879051286300:android:e1c24c6c0890889948bcd9",
+        "mobilesdk_app_id": "YOUR_MOBILE_SDK_APP_ID",
         "android_client_info": {
-          "package_name": "com.example.flyx"
+          "package_name": "YOUR_PACKAGE_NAME"
         }
       },
       "oauth_client": [
         {
-          "client_id": "879051286300-9rvl6ohkr561g8q00e170gisfim8pk25.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "YOUR_CLIENT_ID",
+          "client_type": "CLIENT_TYPE"
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDvx7TJuBkPfqVvn7k_lSjxRyAXgAA4uLM"
+          "current_key": "YOUR_CURRENT_KEY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "879051286300-9rvl6ohkr561g8q00e170gisfim8pk25.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "879051286300-bhee77jirngsd0mgkct71klemc2sfe5g.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flyx"
-              }
+              "client_id": "YOUR_CLIENT_ID",
+              "client_type": "YOUR_CLIENT_TYPE"
             }
           ]
         }
       }
     }
   ],
-  "configuration_version": "1"
+  "configuration_version": "VERSION"
 }
